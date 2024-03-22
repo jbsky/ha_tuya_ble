@@ -129,7 +129,6 @@ class TuyaBLEWaterValveSwitchMapping(TuyaBLESwitchMapping):
         )
     )
     is_available: TuyaBLESwitchIsAvailable = is_water_valve_in_switch_mode
-    setter: set_water_valve_countdown,
 
 
 @dataclass
@@ -365,7 +364,9 @@ mapping: dict[str, TuyaBLECategorySwitchMapping] = {
     "sfkzq": TuyaBLECategorySwitchMapping(
         products={
             "nxquc5lb": [ # Smart water timer - SOP10
-                TuyaBLEWaterValveSwitchMapping(dp_id=1),
+                TuyaBLEWaterValveSwitchMapping(
+                    dp_id=1,
+                    setter=set_water_valve_countdown),
                 TuyaBLEWaterValveWeatherSwitchMapping(dp_id=14),
             ],
         },
