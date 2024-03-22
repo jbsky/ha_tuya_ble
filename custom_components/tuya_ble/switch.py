@@ -90,6 +90,14 @@ def get_fingerbot_program_repeat_forever(
             result = repeat_count == 0xFFFF
     return result
 
+def set_water_valve_countdown(
+    self: TuyaBLESwitch, product: TuyaBLEProductInfo, value: bool
+) -> None:
+    if product.water_valve and product.water_valve.countdown:
+        datapoint = self._device.datapoints[product.water_valve.countdown]
+        if datapoint and datapoint.value == 0:
+            new_value = 60
+            self._hass.create_task(datapoint.set_value(new_value))
 
 def set_fingerbot_program_repeat_forever(
     self: TuyaBLESwitch, product: TuyaBLEProductInfo, value: bool
@@ -121,6 +129,7 @@ class TuyaBLEWaterValveSwitchMapping(TuyaBLESwitchMapping):
         )
     )
     is_available: TuyaBLESwitchIsAvailable = is_water_valve_in_switch_mode
+    setter: set_water_valve_countdown,
 
 
 @dataclass
