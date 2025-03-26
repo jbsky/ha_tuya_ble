@@ -48,20 +48,12 @@ class TuyaBLEFingerbotInfo:
     manual_control: int = 0
     program: int = 0
 
-@dataclass
-class TuyaBLEWaterValveInfo:
-    switch: bool
-    countdown: int
-    weather_delay: str
-    smart_weather: str
-    use_time: int
 
 @dataclass
 class TuyaBLEProductInfo:
     name: str
     manufacturer: str = DEVICE_DEF_MANUFACTURER
     fingerbot: TuyaBLEFingerbotInfo | None = None
-    watervalve: TuyaBLEWaterValveInfo | None = None
 
 
 class TuyaBLEEntity(CoordinatorEntity):
@@ -304,13 +296,6 @@ devices_database: dict[str, TuyaBLECategoryInfo] = {
         products={
             "nxquc5lb": TuyaBLEProductInfo(
                 name="Water valve controller",
-                watervalve=TuyaBLEWaterValveInfo(
-                    switch=1,
-                    countdown=8,
-                    weather_delay=10,
-                    smart_weather=13,
-                    use_time=9
-                ),
             ),
         },
     ),
