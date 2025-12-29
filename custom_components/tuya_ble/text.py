@@ -131,7 +131,7 @@ mapping: dict[str, TuyaBLECategoryTextMapping] = {
                         description=TextEntityDescription(
                             key="program",
                             icon="mdi:repeat",
-                            pattern="^((\d{1,2}|100)(\/\d{1,2})?)(;((\d{1,2}|100)(\/\d{1,2})?))+$",
+                            pattern=r"^((\d{1,2}|100)(\/\d{1,2})?)(;((\d{1,2}|100)(\/\d{1,2})?))+$",
                             entity_category=EntityCategory.CONFIG,
                         ),
                         is_available=is_fingerbot_in_program_mode,
@@ -146,7 +146,8 @@ mapping: dict[str, TuyaBLECategoryTextMapping] = {
         products={
             **dict.fromkeys(
                 [
-                    "mknd4lci"
+                    "mknd4lci",
+                    "riecov42"
                 ],  # Fingerbot Plus
                 [
                     TuyaBLETextMapping(
@@ -154,7 +155,7 @@ mapping: dict[str, TuyaBLECategoryTextMapping] = {
                         description=TextEntityDescription(
                             key="program",
                             icon="mdi:repeat",
-                            pattern="^((\d{1,2}|100)(\/\d{1,2})?)(;((\d{1,2}|100)(\/\d{1,2})?))+$",
+                            pattern=r"^((\d{1,2}|100)(\/\d{1,2})?)(;((\d{1,2}|100)(\/\d{1,2})?))+$",
                             entity_category=EntityCategory.CONFIG,
                         ),
                         is_available=is_fingerbot_in_program_mode,
