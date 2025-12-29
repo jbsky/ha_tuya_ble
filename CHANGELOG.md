@@ -128,3 +128,12 @@ and this project adheres to [Semantic Versioning].
 
 - Add ggq/fnlw6npo device
 - Add jtmspro/ebd5e0uauqx0vfsp device
+
+## [0.2.4] - 2025-12-29
+
+### Added
+
+- drop CONF_APP_TYPE
+- Add mknd4lci
+- Add riecov42
+- fix SyntaxWarning: invalid escape sequence '\d'
