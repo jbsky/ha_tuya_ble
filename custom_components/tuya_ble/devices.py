@@ -271,6 +271,28 @@ devices_database: dict[str, TuyaBLECategoryInfo] = {
             ),
         },
     ),
+    "kg": TuyaBLECategoryInfo(
+        products={
+            **dict.fromkeys(
+                [
+                    "mknd4lci"
+                ],  # device product_ids
+                TuyaBLEProductInfo(
+                    name="Fingerbot Plus",
+                    fingerbot=TuyaBLEFingerbotInfo(
+                        switch=1,
+                        mode=101,
+                        up_position=106,
+                        down_position=102,
+                        hold_time=103,
+                        reverse_positions=104,
+                        manual_control=107,
+                        program=109,
+                    ),
+                ),
+            ),
+        },
+    ),
     "wk": TuyaBLECategoryInfo(
         products={
             **dict.fromkeys(

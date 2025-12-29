@@ -240,6 +240,46 @@ mapping: dict[str, TuyaBLECategorySwitchMapping] = {
             ),
         },
     ),
+    "kg": TuyaBLECategorySwitchMapping(
+        products={
+            **dict.fromkeys(
+                [
+                    "mknd4lci"
+                ],  # Fingerbot Plus
+                [
+                    TuyaBLEFingerbotSwitchMapping(dp_id=1),
+                    TuyaBLEReversePositionsMapping(dp_id=104),
+                    TuyaBLESwitchMapping(
+                        dp_id=107,
+                        description=SwitchEntityDescription(
+                            key="manual_control",
+                            icon="mdi:gesture-tap-box",
+                            entity_category=EntityCategory.CONFIG,
+                        ),
+                    ),
+                    TuyaBLESwitchMapping(
+                        dp_id=1,
+                        description=SwitchEntityDescription(
+                            key="program",
+                            icon="mdi:repeat",
+                        ),
+                        is_available=is_fingerbot_in_program_mode,
+                    ),
+                    TuyaBLESwitchMapping(
+                        dp_id=109,
+                        description=SwitchEntityDescription(
+                            key="program_repeat_forever",
+                            icon="mdi:repeat",
+                            entity_category=EntityCategory.CONFIG,
+                        ),
+                        getter=get_fingerbot_program_repeat_forever,
+                        is_available=is_fingerbot_in_program_mode,
+                        setter=set_fingerbot_program_repeat_forever,
+                    ),
+                ],
+            ),
+        },
+    ),
     "wk": TuyaBLECategorySwitchMapping(
         products={
             **dict.fromkeys(
