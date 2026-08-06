@@ -13,7 +13,7 @@ from homeassistant.components.number import (
 from homeassistant.components.number.const import NumberDeviceClass, NumberMode
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
-    CONCENTRATION_PARTS_PER_MILLION,
+    UnitOfRatio,
     PERCENTAGE,
     UnitOfTime,
     UnitOfVolume,
@@ -239,7 +239,7 @@ mapping: dict[str, TuyaBLECategoryNumberMapping] = {
                         icon="mdi:molecule-co2",
                         native_max_value=5000,
                         native_min_value=400,
-                        native_unit_of_measurement=CONCENTRATION_PARTS_PER_MILLION,
+                        native_unit_of_measurement=UnitOfRatio.PARTS_PER_MILLION,
                         native_step=100,
                         entity_category=EntityCategory.CONFIG,
                     ),
