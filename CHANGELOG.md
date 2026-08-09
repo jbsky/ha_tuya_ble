@@ -148,3 +148,10 @@ and this project adheres to [Semantic Versioning].
 ### Changed
 
 - Requires Home Assistant 2026.7 or newer (UnitOfRatio was introduced in 2026.7)
+
+## [0.2.6] - 2026-08-09
+
+### Changed
+
+- Declare the minimum Home Assistant version in hacs.json, so HACS filters out
+  installs older than 2026.7.0 instead of letting them fail on import
