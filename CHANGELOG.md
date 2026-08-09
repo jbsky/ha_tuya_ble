@@ -137,3 +137,14 @@ and this project adheres to [Semantic Versioning].
 - Add mknd4lci
 - Add riecov42
 - fix SyntaxWarning: invalid escape sequence '\d'
+
+## [0.2.5] - 2026-08-09
+
+### Fixed
+
+- Fix deprecated CONCENTRATION_PARTS_PER_MILLION with Home Assistant 2026.8,
+  replaced by UnitOfRatio.PARTS_PER_MILLION
+
+### Changed
+
+- Requires Home Assistant 2026.7 or newer (UnitOfRatio was introduced in 2026.7)
