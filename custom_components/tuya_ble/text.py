@@ -12,6 +12,7 @@ from homeassistant.components.text import (
     TextEntityDescription,
 )
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -185,6 +186,8 @@ def get_mapping_by_device(device: TuyaBLEDevice) -> list[TuyaBLETextMapping]:
 
 class TuyaBLEText(TuyaBLEEntity, TextEntity):
     """Representation of a Tuya BLE text entity."""
+
+    _entity_domain = Platform.TEXT
 
     def __init__(
         self,

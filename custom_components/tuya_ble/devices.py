@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import logging
-from homeassistant.const import CONF_ADDRESS, CONF_DEVICE_ID
+from homeassistant.const import CONF_ADDRESS, CONF_DEVICE_ID, Platform
 
 from homeassistant.core import CALLBACK_TYPE, HomeAssistant, callback
 from homeassistant.helpers import device_registry as dr
@@ -59,6 +59,11 @@ class TuyaBLEProductInfo:
 class TuyaBLEEntity(CoordinatorEntity):
     """Tuya BLE base entity."""
 
+    # Domain of the platform the entity belongs to, used to build the entity_id.
+    # Every subclass must declare it, otherwise the entity_id would not match
+    # the platform it is added to.
+    _entity_domain: Platform
+
     def __init__(
         self,
         hass: HomeAssistant,
@@ -79,7 +84,7 @@ class TuyaBLEEntity(CoordinatorEntity):
         self._attr_device_info = get_device_info(self._device)
         self._attr_unique_id = f"{self._device.device_id}-{description.key}"
         self.entity_id = generate_entity_id(
-            "sensor.{}", self._attr_unique_id, hass=hass
+            f"{self._entity_domain}.{{}}", self._attr_unique_id, hass=hass
         )
 
     @property

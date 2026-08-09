@@ -14,6 +14,7 @@ from homeassistant.components.sensor import (
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
+    Platform,
     UnitOfRatio,
     PERCENTAGE,
     SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
@@ -494,6 +495,8 @@ def get_mapping_by_device(device: TuyaBLEDevice) -> list[TuyaBLESensorMapping]:
 
 class TuyaBLESensor(TuyaBLEEntity, SensorEntity):
     """Representation of a Tuya BLE sensor."""
+
+    _entity_domain = Platform.SENSOR
 
     def __init__(
         self,

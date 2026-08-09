@@ -13,6 +13,7 @@ from homeassistant.components.number import (
 from homeassistant.components.number.const import NumberDeviceClass, NumberMode
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
+    Platform,
     UnitOfRatio,
     PERCENTAGE,
     UnitOfTime,
@@ -564,6 +565,8 @@ def get_mapping_by_device(device: TuyaBLEDevice) -> list[TuyaBLECategoryNumberMa
 
 class TuyaBLENumber(TuyaBLEEntity, NumberEntity):
     """Representation of a Tuya BLE Number."""
+
+    _entity_domain = Platform.NUMBER
 
     def __init__(
         self,

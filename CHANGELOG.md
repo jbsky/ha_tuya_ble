@@ -155,3 +155,15 @@ and this project adheres to [Semantic Versioning].
 
 - Declare the minimum Home Assistant version in hacs.json, so HACS filters out
   installs older than 2026.7.0 instead of letting them fail on import
+
+## [0.2.7] - 2026-08-09
+
+### Fixed
+
+- Build the entity_id with the domain of the platform the entity belongs to
+  instead of always using `sensor.`, which made Home Assistant log "sets an
+  entity ID with wrong domain" for every button, climate, number, select,
+  switch, text and binary_sensor entity (breaking change in Home Assistant
+  2027.5.0). Entities already in the registry keep their current entity_id;
+  only newly created ones use the correct domain.
+

@@ -10,7 +10,7 @@ from homeassistant.components.select import (
     SelectEntity,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import UnitOfTemperature
+from homeassistant.const import Platform, UnitOfTemperature
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -294,6 +294,8 @@ def get_mapping_by_device(
 
 class TuyaBLESelect(TuyaBLEEntity, SelectEntity):
     """Representation of a Tuya BLE select."""
+
+    _entity_domain = Platform.SELECT
 
     def __init__(
         self,

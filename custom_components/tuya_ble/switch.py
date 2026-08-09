@@ -11,6 +11,7 @@ from homeassistant.components.switch import (
     SwitchEntity,
 )
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -441,6 +442,8 @@ def get_mapping_by_device(device: TuyaBLEDevice) -> list[TuyaBLECategorySwitchMa
 
 class TuyaBLESwitch(TuyaBLEEntity, SwitchEntity):
     """Representation of a Tuya BLE Switch."""
+
+    _entity_domain = Platform.SWITCH
 
     def __init__(
         self,
