@@ -167,3 +167,21 @@ and this project adheres to [Semantic Versioning].
   2027.5.0). Entities already in the registry keep their current entity_id;
   only newly created ones use the correct domain.
 
+## [0.2.8] - 2026-08-10
+
+### Fixed
+
+- Reset the notification reassembly state when a connection is established and
+  when it is closed. A message left incomplete by a disconnection made the
+  first packet of the next session look out of order, logging "Unexpcted packet
+  (number 0) in notifications, expected 2" on every reconnect of a device with
+  a weak signal.
+
+### Changed
+
+- Log a resynchronisation on the notification stream at debug level instead of
+  error: the message is reassembled from the new packet and re-read by the next
+  update, so it needs no action. A truly missing packet, and a message longer
+  than announced, are now warnings instead of errors.
+- Fix the "Unexpcted" typo in the message about the length of received data.
+

@@ -491,6 +491,9 @@ class TuyaBLEDevice:
         """Disconnected callback."""
         was_paired = self._is_paired
         self._is_paired = False
+        # A partially received message cannot be completed by another
+        # connection, drop it so the next session starts from a clean state.
+        self._clean_input()
         self._fire_disconnected_callbacks()
         if self._expected_disconnect:
             _LOGGER.debug(
@@ -534,6 +537,7 @@ class TuyaBLEDevice:
             if client and client.is_connected:
                 await client.stop_notify(CHARACTERISTIC_NOTIFY)
                 await client.disconnect()
+        self._clean_input()
         async with self._seq_num_lock:
             self._current_seq_num = 1
 
@@ -602,6 +606,9 @@ class TuyaBLEDevice:
                                   self.address, self.rssi)
                     self._client = client
                     try:
+                        # Never reassemble notifications of a new session on top
+                        # of leftovers from a previous, interrupted one.
+                        self._clean_input()
                         await self._client.start_notify(
                             CHARACTERISTIC_NOTIFY, self._notification_handler
                         )
@@ -1244,8 +1251,12 @@ class TuyaBLEDevice:
         packet_num, pos = self._unpack_int(data, pos)
 
         if packet_num < self._input_expected_packet_num:
-            _LOGGER.error(
-                "%s: Unexpcted packet (number %s) in notifications, " "expected %s",
+            # The device started a new message while the previous one was still
+            # incomplete. Drop what was buffered and resynchronise on it, the
+            # message that was lost is re-read by the next update.
+            _LOGGER.debug(
+                "%s: Restarting reassembly, received packet %s while "
+                "expecting %s",
                 self.address,
                 packet_num,
                 self._input_expected_packet_num,
@@ -1260,7 +1271,7 @@ class TuyaBLEDevice:
             self._input_buffer += data[pos:]
             self._input_expected_packet_num += 1
         else:
-            _LOGGER.error(
+            _LOGGER.warning(
                 "%s: Missing packet (number %s) in notifications, received %s",
                 self.address,
                 self._input_expected_packet_num,
@@ -1270,8 +1281,8 @@ class TuyaBLEDevice:
             return
 
         if len(self._input_buffer) > self._input_expected_length:
-            _LOGGER.error(
-                "%s: Unexpcted length of data in notifications, "
+            _LOGGER.warning(
+                "%s: Unexpected length of data in notifications, "
                 "received %s expected %s",
                 self.address,
                 len(self._input_buffer),
